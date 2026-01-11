@@ -1,0 +1,117 @@
+.navbar {
+  width: 100%;
+  background-color: #111;
+  border-bottom: 1px solid #222;
+}
+.nav-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: #fff;
+}
+
+.social-footer {
+  display: flex;
+  justify-content: center;
+  gap: 3.2rem; /* increased horizontal gap */
+  padding: 1.6rem 0.8rem; /* more vertical padding */
+  margin-top: 1rem; /* small separation from content above */
+  background-color: #0f0f0f;
+  border-top: 1px solid #222;
+}
+
+.social-footer a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  padding: 0.15rem 0.4rem;
+  font-weight: 500;
+}
+
+.social-footer a i {
+  font-size: 1.05rem; /* larger icon */
+  line-height: 1;
+}
+
+.social-footer a:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.instagram {
+  color: #e1306c;
+}
+
+.github {
+  color: #ffffff;
+}
+.linkedin {
+  color: #0a66c2;
+}
+
+.social-footer + .copyright {
+  display: block;
+  margin-top: 0.6rem;
+  color: #9b9b9b;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .social-footer {
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.8rem 0;
+  }
+  .social-footer a {
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+.nav-back {
+  max-width: 900px;
+  margin: 1.5rem auto 1.2rem auto; /* more space above and below */
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.nav-back a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 1rem; /* slightly larger */
+}
+
+.nav-back a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.nav-back a:hover {
+  color: #ffffff;
+}

@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background-color: #0e0e0e;
+  color: #eaeaea;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 3rem 1.5rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: #b5b5b5;
+  font-size: 1rem;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #151515;
+  border: 1px solid #262626;
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #ffffff;
+}
+
+.card h2 {
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
+}
+
+.card p {
+  color: #cfcfcf;
+  font-size: 0.95rem;
+}
+
+.social-footer {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.2rem;
+  background-color: #111;
+  border-top: 1px solid #222;
+}
+
+.social-footer a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: opacity 0.2s ease;
+}
+
+.social-footer a:hover {
+  opacity: 0.75;
+}
+
+.instagram {
+  color: #e1306c;
+}
+
+.github {
+  color: #ffffff;
+}
+.linkedin {
+  color: #0a66c2;
+}
