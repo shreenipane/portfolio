@@ -1,82 +1,447 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Shree Nipane" />
-    <meta name="description" content="Portfolio of Shree Nipane" />
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Shree Nipane, B.Tech CSE at VIT Vellore (graduating 2028). Linux systems work: an in-kernel packet classifier and a cgroup v2 resource manager. Open to software engineering internships.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shree Nipane">
+<meta property="og:description" content="Shree Nipane, B.Tech CSE at VIT Vellore (graduating 2028). Linux systems work: an in-kernel packet classifier and a cgroup v2 resource manager. Open to software engineering internships.">
+<meta property="og:url" content="https://shreenipane.github.io/portfolio/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' fill='%23111'/%3E%3Cpath d='M20.5 7.5H12a3.25 3.25 0 0 0 0 6.5h4a3.25 3.25 0 0 1 0 6.5H7.5' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='square'/%3E%3Crect x='19' y='18.9' width='3.2' height='3.2' fill='white'/%3E%3C/svg%3E">
+<title>Shree Nipane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#ffffff;
+  --paper-2:#fafafa;
+  --ink:#111111;
+  --ink-2:#4a4a4a;
+  --ink-3:#737373;
+  --line:#e5e5e5;
+  --accent:#111111;
+  --accent-deep:#3d3d3d;
+  --accent-pale:#f0f0f0;
+  --on-accent:#ffffff;
+  --bad:#c2410c;
+  --display:"Big Shoulders Display","Arial Narrow","Helvetica Neue Condensed",Impact,sans-serif;
+  --body:"Hanken Grotesk",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --wrap:1180px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0d0d0d;--paper-2:#161616;--ink:#f2f2f2;--ink-2:#c4c4c4;--ink-3:#8f8f8f;
+    --line:#2b2b2b;--accent:#f2f2f2;--accent-deep:#cfcfcf;--accent-pale:#232323;--on-accent:#0d0d0d;--bad:#fb923c;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0d0d0d;--paper-2:#161616;--ink:#f2f2f2;--ink-2:#c4c4c4;--ink-3:#8f8f8f;
+    --line:#2b2b2b;--accent:#f2f2f2;--accent-deep:#cfcfcf;--accent-pale:#232323;--on-accent:#0d0d0d;--bad:#fb923c;
+}
 
-    <title>Shree Nipane | Portfolio</title>
-    <link rel="stylesheet" href="nav.css" />
-    <link rel="stylesheet" href="index.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-  </head>
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(16px,4vw,40px)}
+.mono{font-family:var(--mono);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:13px}
+h1,h2,h3{font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:.9;letter-spacing:-.005em;margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
-  <body>
-    <nav class="navbar">
-      <div class="nav-container">
-        <div class="nav-logo">Shree Nipane</div>
+/* strip + nav */
+.strip{background:var(--accent);color:var(--on-accent);text-align:center;padding:9px 16px;font:600 14px/1.4 var(--body)}
+.strip a{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+header{border-bottom:1px solid var(--line);background:var(--paper)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 24px/1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.logo svg{width:30px;height:30px;flex:none}
+nav{background:var(--paper-2);border-bottom:1px solid var(--line)}
+nav ul{list-style:none;margin:0;display:flex;gap:clamp(18px,4vw,56px);justify-content:flex-end;padding-block:9px;overflow-x:auto}
+nav a{color:var(--accent);text-decoration:none;white-space:nowrap}
+nav a:hover{text-decoration:underline;text-underline-offset:4px}
 
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="projects.html">Projects</a></li>
-        </ul>
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);text-decoration:none;cursor:pointer;font-family:var(--mono);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.04em;transition:background .15s,color .15s}
+.btn:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink-3)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.sm{padding:10px 16px;font-size:13px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .pattern{position:absolute;right:-60px;top:0;height:100%;width:min(46vw,560px);color:var(--line);pointer-events:none;-webkit-mask-image:linear-gradient(to right,transparent,#000 35%);mask-image:linear-gradient(to right,transparent,#000 35%)}
+.hero .pattern .hi{color:var(--accent);opacity:.55}
+.hero-in{position:relative;padding-block:clamp(40px,5vw,72px) clamp(40px,6vw,80px);display:grid;gap:28px;max-width:860px}
+.hero h1{font-size:clamp(60px,7.4vw,100px)}
+.hero h1 em{font-style:normal;color:transparent;-webkit-text-stroke:2px var(--ink)}
+@supports not (-webkit-text-stroke:2px black){.hero h1 em{color:var(--ink-3)}}
+.lede{font-size:clamp(19px,2.1vw,23px);line-height:1.5;max-width:52ch;color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;color:var(--ink-3)}
+
+/* sections */
+section{padding-block:clamp(64px,9vw,112px)}
+.head{display:grid;gap:14px;margin-bottom:clamp(32px,5vw,56px)}
+.head h2{font-size:clamp(48px,7vw,84px)}
+.eyebrow{color:var(--accent)}
+
+/* featured */
+.feature{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,72px);align-items:start}
+.feature h3{font-size:clamp(56px,7vw,96px)}
+.feature .sum{display:grid;gap:18px}
+.feature .sum p{max-width:56ch;color:var(--ink-2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:12px;font-weight:500;padding:4px 8px;background:var(--accent-pale);color:var(--ink)}
+.big{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;font-family:var(--display);font-weight:800;line-height:.9}
+.big .from{font-size:clamp(44px,5vw,64px);color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:3px}
+.big .arrow{font-family:var(--mono);font-size:22px;color:var(--ink-3)}
+.big .to{font-size:clamp(76px,9vw,124px);color:var(--accent)}
+.big-cap{color:var(--ink-3);font-size:15px;max-width:48ch}
+
+.chart{border:1px solid var(--line);background:var(--paper-2);padding:clamp(18px,3vw,28px)}
+.chart-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.chart-top .t{font-weight:600}
+.rows{display:grid;gap:10px;position:relative}
+.r{display:grid;grid-template-columns:minmax(0,150px) 1fr 58px;align-items:center;gap:12px;font-size:14px}
+.r .lab{color:var(--ink-2);line-height:1.25}
+.r .lab b{font-family:var(--mono);font-weight:600;color:var(--ink);margin-right:6px}
+.track{position:relative;height:22px}
+.track .fill{position:absolute;inset:0 auto 0 0;background:var(--ink-3);opacity:.45;min-width:3px}
+.r.win .fill{background:var(--accent);opacity:1}
+.r.solo .fill{background:var(--ink-3);opacity:.8}
+.track .slo{position:absolute;top:-6px;bottom:-6px;width:0;border-left:1.5px dashed var(--bad)}
+.r .v{font-family:var(--mono);font-size:13px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.r.win .v{color:var(--accent);font-weight:600}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--ink-3);font-size:13px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:0;border-top:1.5px dashed var(--bad)}
+.note{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:clamp(40px,6vw,64px)}
+.stat{padding:22px 22px 4px 0;display:grid;gap:6px;align-content:start}
+.stat + .stat{padding-left:22px;border-left:1px solid var(--line)}
+.stat .n{font:800 44px/1 var(--display);font-variant-numeric:tabular-nums}
+.stat p{font-size:14px;color:var(--ink-2);max-width:32ch}
+
+/* project list */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink)}
+.proj{padding:28px 28px 32px 0;display:grid;gap:16px;align-content:start}
+.proj + .proj{padding-left:28px;border-left:1px solid var(--line)}
+.proj .mark{width:64px;height:40px;color:var(--accent)}
+.proj h3{font-size:clamp(38px,4vw,52px)}
+.proj p{color:var(--ink-2);font-size:16px}
+.proj .hard{font-size:15px;color:var(--ink);border-left:2px solid var(--accent);padding-left:12px}
+.go-row{display:flex;flex-wrap:wrap;gap:10px 28px}
+.proj a.go{justify-self:start;color:var(--accent);text-decoration:none}
+.proj a.go:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* principles band */
+.band{background:var(--accent);color:var(--on-accent)}
+.band .head h2{color:var(--on-accent)}
+.band .eyebrow{color:var(--on-accent);opacity:.75}
+.princ{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,48px)}
+.princ div{display:grid;gap:12px;align-content:start;border-top:1px solid color-mix(in srgb,var(--on-accent) 40%,transparent);padding-top:18px}
+.princ h3{font-size:34px;line-height:.95}
+.princ p{font-size:16px;opacity:.92}
+
+/* contact */
+.contact h2{font-size:clamp(72px,13vw,168px)}
+.contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(32px,5vw,64px);align-items:end}
+.mail{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:28px}
+.mail code{font-family:var(--mono);font-size:clamp(16px,2vw,20px);font-weight:500;padding:12px 16px;border:1px solid var(--line);background:var(--paper-2);user-select:all;word-break:break-all}
+.copied{color:var(--accent);min-height:1.4em}
+.links{display:grid;border-top:1px solid var(--line)}
+.links a{display:flex;justify-content:space-between;gap:16px;padding-block:14px;border-bottom:1px solid var(--line);text-decoration:none}
+.links a:hover{color:var(--accent)}
+.links span:last-child{color:var(--ink-3)}
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--ink-3)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* verdict */
+.verdict{background:var(--paper-2);border-block:1px solid var(--line)}
+.v-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,5vw,72px);align-items:start}
+.verdict .sum{display:grid;gap:18px}
+.verdict h2{font-size:clamp(56px,7vw,96px)}
+.verdict .sum p{max-width:56ch;color:var(--ink-2)}
+.verdict .sum p.eyebrow{color:var(--accent)}
+.verdict .hard{color:var(--ink);border-left:2px solid var(--accent);padding-left:12px;font-size:16px}
+.v-stats{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink)}
+.v-stats .stat,.v-stats .stat + .stat{padding:22px 20px 20px 0;border-left:0;border-bottom:1px solid var(--line)}
+.v-stats .stat:nth-child(even){padding-left:20px;border-left:1px solid var(--line)}
+.verdict .note{max-width:80ch;margin-top:clamp(28px,4vw,40px)}
+
+/* education */
+.edu{border-top:1px solid var(--line)}
+.edu-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(32px,5vw,72px);align-items:start}
+.timeline{margin:0;border-top:1px solid var(--ink)}
+.t-row{display:grid;grid-template-columns:130px 1fr;gap:20px;padding-block:18px;border-bottom:1px solid var(--line)}
+.t-row dt{color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.t-row dd{margin:0;display:grid;gap:4px}
+.t-row strong{font-weight:600}
+.t-row span{color:var(--ink-2);font-size:15px}
+
+@media (max-width:900px){
+  .feature,.contact-grid,.v-grid,.edu-grid{grid-template-columns:1fr}
+  .projects,.princ{grid-template-columns:1fr}
+  .proj,.proj + .proj{padding:28px 0;border-left:0}
+  .proj + .proj{border-top:1px solid var(--line)}
+  .hero .pattern{opacity:.5}
+}
+@media (max-width:620px){
+  .stats{grid-template-columns:1fr}
+  .stat,.stat + .stat{padding:18px 0;border-left:0}
+  .stat + .stat{border-top:1px solid var(--line)}
+  .v-stats{grid-template-columns:1fr}
+  .t-row{grid-template-columns:1fr;gap:6px}
+  .v-stats .stat:nth-child(even){padding-left:0;border-left:0}
+  .r{grid-template-columns:92px 1fr 50px;gap:8px;font-size:13px}
+  .r .lab span{display:none}
+  nav ul{justify-content:flex-start;flex-wrap:wrap;gap:6px 18px;overflow:visible}
+}
+@media (prefers-reduced-motion:no-preference){
+  .fill{animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes grow{from{transform:scaleX(.02);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+}
+</style>
+</head>
+<body>
+
+<div class="strip">Open to software engineering internships in systems, infrastructure and applied ML. <a href="#contact">Email me</a>.</div>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="Shree Nipane, home">
+      <svg viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" fill="var(--accent)"/><path d="M20.5 7.5H12a3.25 3.25 0 0 0 0 6.5h4a3.25 3.25 0 0 1 0 6.5H7.5" fill="none" stroke="var(--on-accent)" stroke-width="3.2" stroke-linecap="square"/><rect x="19" y="18.9" width="3.2" height="3.2" fill="var(--on-accent)"/></svg>
+      Shree Nipane
+    </a>
+    <a class="btn sm" href="#contact">Get in touch</a>
+  </div>
+</header>
+<nav aria-label="Sections">
+  <div class="wrap">
+    <ul class="mono">
+      <li><a href="#verdict">Verdict</a></li>
+      <li><a href="#vagus">VAGUS</a></li>
+      <li><a href="#work">Other work</a></li>
+      <li><a href="#how">How I work</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+  <div class="hero">
+    <svg class="pattern" viewBox="0 0 560 700" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="60" y="-150" width="300" height="600" rx="150"/>
+      <circle cx="360" cy="150" r="150"/>
+      <circle cx="510" cy="150" r="150"/>
+      <circle cx="360" cy="450" r="150"/>
+      <rect x="360" y="300" width="300" height="600" rx="150"/>
+      <g class="hi" stroke-width="1.5">
+        <circle cx="150" cy="560" r="40"/><circle cx="230" cy="560" r="40"/>
+        <rect x="110" y="600" width="80" height="160" rx="40"/>
+        <circle cx="270" cy="640" r="40"/>
+      </g>
+    </svg>
+    <div class="wrap">
+      <div class="hero-in">
+        <p class="mono eyebrow">B.Tech CSE · VIT Vellore · Graduating 2028</p>
+        <h1>I build software that knows <em>when it’s wrong.</em></h1>
+        <p class="lede">I work on Linux systems: a packet classifier that runs inside the kernel in 250 ns per packet, and a resource manager that cut a service’s P99 latency from 258 ms to 9.0 ms beside noisy neighbours.</p>
+        <div class="row">
+          <a class="btn" href="#verdict">See the work →</a>
+          <a class="btn ghost" href="resume.pdf">Résumé (PDF)</a>
+          <a class="btn ghost" href="https://github.com/shreenipane">GitHub</a>
+        </div>
+        <div class="facts mono"><span>C · Python · TypeScript</span><span>eBPF · cgroups v2 · PyTorch</span><span>Vellore, India</span></div>
       </div>
-    </nav>
-
-    <main class="container">
-      <header class="hero">
-        <h1>Shree Nipane</h1>
-        <p class="subtitle">
-          B.Tech Fresher • CSE • AI/ML & Full Stack Enthusiast
-        </p>
-      </header>
-
-      <hr />
-
-      <section class="intro">
-        <h2>Hi, I'm Shree 👋</h2>
-        <p>
-          I'm a
-          <strong
-            >B.Tech Sophomore in Computer Science Engineering at VIT
-            Vellore</strong
-          >, with a strong interest in
-          <strong>AI/ML and Full Stack development</strong>. I enjoy building
-          projects and learning new technologies.
-        </p>
-
-        <a class="primary-link" href="about.html">Know more about me</a>
-      </section>
-    </main>
-
-    <div class="nav-back">
-      <a href="index.html">Back to Home</a>
     </div>
+  </div>
 
-    <footer class="social-footer">
-      <a
-        href="https://instagram.com/shreenipane"
-        target="_blank"
-        class="instagram"
-      >
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-      <a href="https://github.com/shreenipane" target="_blank" class="github">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-      <a
-        href="https://linkedin.com/in/shreenipane"
-        target="_blank"
-        class="linkedin"
-      >
-        <i class="fab fa-linkedin"></i> LinkedIn
-      </a>
-    </footer>
-    <p class="copyright">© 2026 Shree Nipane. All rights reserved.</p>
-  </body>
+  <section id="verdict" class="verdict">
+    <div class="wrap">
+      <div class="v-grid">
+        <div class="sum">
+          <p class="mono eyebrow">Featured project · in progress · repository private</p>
+          <h2>Verdict</h2>
+          <div class="tags"><span class="tag">C</span><span class="tag">eBPF</span><span class="tag">Linux kernel</span><span class="tag">QEMU/KVM</span></div>
+          <p>Deciding whether a network packet is malicious, inside the Linux kernel, at the earliest point on the receive path. It is loaded and run on a real kernel, not a simulator.</p>
+          <p class="hard">How it works is not published yet: a patent application is being considered. I can walk through the testing and measurements in an interview; design details stay private until then.</p>
+        </div>
+        <div class="v-stats">
+          <div class="stat"><span class="n">250 ns</span><p>of CPU time per classified packet, measured with BPF_PROG_TEST_RUN in a KVM guest.</p></div>
+          <div class="stat"><span class="n">2,080,804</span><p>arithmetic cases checked exhaustively against a separate implementation. Zero mismatches.</p></div>
+          <div class="stat"><span class="n">114,401</span><p>real network frames replayed. Zero faults, zero mismatches.</p></div>
+          <div class="stat"><span class="n">22 / 23</span><p>deliberately injected bugs caught by the tests. The one that survived turned out to be equivalent to the original code.</p></div>
+        </div>
+      </div>
+      <p class="note">Detection accuracy is not claimed yet. The traffic replayed so far is benign, so accuracy on labelled attack traffic is the next test. It was planned from the start as the test that could kill the project.</p>
+    </div>
+  </section>
+
+  <section id="vagus">
+    <div class="wrap">
+      <div class="head">
+        <p class="mono eyebrow">Linux resource management</p>
+        <h2>Keeping a server fast next to noisy neighbours</h2>
+      </div>
+
+      <div class="feature">
+        <div class="sum">
+          <h3>VAGUS</h3>
+          <div class="tags"><span class="tag">Python 3.14</span><span class="tag">cgroups v2</span><span class="tag">eBPF (C)</span><span class="tag">PyTorch</span><span class="tag">SQLite</span><span class="tag">170+ tests</span></div>
+          <p>A monitor → plan → execute loop for Linux servers. It samples every cgroup’s CPU, memory and I/O into SQLite, sizes <code>cpu.max</code> and <code>cpu.weight</code> from observed P95 demand, and writes limits through a crash-safe journal. It previews changes by default, can undo an interrupted apply, and rolls back on its own if the protected service’s pressure stall rate gets worse.</p>
+          <p>Offline, an LSTM forecasts P95 demand and a Double-DQN places workloads across a simulated cluster. Both are benchmarked against simpler baselines.</p>
+          <div>
+            <div class="big" aria-label="P99 latency from 258 milliseconds to 9.0 milliseconds">
+              <span class="from">258 ms</span><span class="arrow">→</span><span class="to">9.0 ms</span>
+            </div>
+            <p class="big-cap">The service’s P99 latency under a CPU hog plus a UDP flood, before and after VAGUS’s plan. The service alone runs at 8.4 ms.</p>
+          </div>
+          <div class="row"><a class="btn ghost sm" href="https://github.com/shreenipane/VAGUS">Read the code →</a></div>
+        </div>
+
+        <figure class="chart" style="margin:0">
+          <div class="chart-top">
+            <span class="t">P99 latency by experiment arm</span>
+            <span class="mono" style="color:var(--ink-3)">ms · 200 req/s · 4 reps</span>
+          </div>
+          <div class="rows" role="list">
+            <div class="r solo" role="listitem"><div class="lab"><b>A</b><span>Service alone</span></div><div class="track"><div class="fill" style="width:3.0%"></div><div class="slo" style="left:5.98%"></div></div><div class="v">8.4</div></div>
+            <div class="r" role="listitem"><div class="lab"><b>B</b><span>+ hog &amp; UDP flood</span></div><div class="track"><div class="fill" style="width:92.3%"></div><div class="slo" style="left:5.98%"></div></div><div class="v">258.4</div></div>
+            <div class="r" role="listitem"><div class="lab"><b>I</b><span>B + cpu.idle</span></div><div class="track"><div class="fill" style="width:68.9%"></div><div class="slo" style="left:5.98%"></div></div><div class="v">192.8</div></div>
+            <div class="r" role="listitem"><div class="lab"><b>W</b><span>B + cpu.weight</span></div><div class="track"><div class="fill" style="width:64.7%"></div><div class="slo" style="left:5.98%"></div></div><div class="v">181.2</div></div>
+            <div class="r" role="listitem"><div class="lab"><b>K</b><span>B + CPU caps</span></div><div class="track"><div class="fill" style="width:4.5%"></div><div class="slo" style="left:5.98%"></div></div><div class="v">12.7</div></div>
+            <div class="r win" role="listitem"><div class="lab"><b>C</b><span>B + full plan</span></div><div class="track"><div class="fill" style="width:3.2%"></div><div class="slo" style="left:5.98%"></div></div><div class="v">9.0</div></div>
+          </div>
+          <div class="legend"><span><i></i>SLO, 16.7 ms</span><span>Scale 0–280 ms</span></div>
+          <figcaption class="note">Only arm C avoided a latency burst in all four reps (per-rep P99 8.8–9.2 ms). Four reps are too few to claim significance. An earlier headline of 22.1 → 9.5 ms was withdrawn after a review I ran found the load generator itself was being starved.</figcaption>
+        </figure>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="n">0.072%</span><p>of requests over the SLO with VAGUS, down from 2.56% under contention.</p></div>
+        <div class="stat"><span class="n">0.60%</span><p>of one core for telemetry across 139 cgroups at a 5 s interval.</p></div>
+        <div class="stat"><span class="n">12.3 → 10.2%</span><p>simulated cluster overload, the strongest baseline (forecast-aware First-Fit) vs Double-DQN. Plain First-Fit: 15.7%. 5 seeds, 95% CI ±0.4.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="head">
+        <p class="mono eyebrow">Other work</p>
+        <h2>Built for the browser</h2>
+      </div>
+      <div class="projects">
+        <article class="proj">
+          <svg class="mark" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 22h14l5-12 7 24 6-18 4 6h28"/></svg>
+          <p class="mono" style="color:var(--ink-3)">TypeScript · React · DSP</p>
+          <h3>PulseGlass</h3>
+          <p>Estimates heart rate from ordinary webcam video in the browser. The pulse changes skin brightness by roughly 0.1–1% of pixel intensity. Every frame stays on the device.</p>
+          <p class="hard">It checks a signal quality index and shows no reading, with the reason, when motion, lighting or face coverage makes the estimate unreliable.</p>
+          <div class="go-row"><a class="go mono" href="https://pulse-glass.vercel.app">Try it live →</a><a class="go mono" href="https://github.com/shreenipane/pulse-glass">View repo →</a></div>
+        </article>
+        <article class="proj">
+          <svg class="mark" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="1" y="1" width="62" height="38"/><path d="M1 13h62M1 26h62M16 1v38"/></svg>
+          <p class="mono" style="color:var(--ink-3)">HTML · CSS · JavaScript</p>
+          <h3>Momentum</h3>
+          <p>A task manager laid out like a spreadsheet, with multiple notebooks, inline editing, priority and due-date tracking, live search and a summary dashboard. It saves to <code>localStorage</code> and uses no framework.</p>
+          <p class="hard">Full undo/redo for every action (Ctrl+Z / Ctrl+Y), written without a framework or a single dependency.</p>
+          <a class="go mono" href="https://github.com/shreenipane/momentum">View repo →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="band">
+    <div class="wrap">
+      <div class="head">
+        <p class="mono eyebrow">How I work</p>
+        <h2>Numbers I can defend</h2>
+      </div>
+      <div class="princ">
+        <div>
+          <h3>Withdraw what doesn’t hold</h3>
+          <p>When a review I ran found VAGUS’s first benchmark harness starving its own load generator, I withdrew the headline result, re-ran the experiment with an open-loop load and a protected client, and published the raw latencies.</p>
+        </div>
+        <div>
+          <h3>Abstain before guessing</h3>
+          <p>PulseGlass shows no heart rate rather than a noisy one. VAGUS fails closed on missing or stale telemetry and rolls back any change that makes the stall rate worse.</p>
+        </div>
+        <div>
+          <h3>Beat the simple baseline</h3>
+          <p>The LSTM forecaster is compared with ARIMA and a calibrated seasonal-naive model. The naive model came close, and the attention layer did nothing measurable, so the write-up says both.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="edu">
+    <div class="wrap edu-grid">
+      <div class="head" style="margin:0">
+        <p class="mono eyebrow">Education</p>
+        <h2>Studying computer science at VIT</h2>
+      </div>
+      <dl class="timeline">
+        <div class="t-row">
+          <dt class="mono">2024 – 2028</dt>
+          <dd><strong>Vellore Institute of Technology (VIT), Vellore</strong><span>B.Tech in Computer Science and Engineering. Expected graduation 2028.</span></dd>
+        </div>
+        <div class="t-row">
+          <dt class="mono">Certification</dt>
+          <dd><strong>AWS Certified AI Practitioner (AIF-C01)</strong><span>Amazon Web Services</span></dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="mono eyebrow" style="margin-bottom:18px">Contact</p>
+      <div class="contact-grid">
+        <div>
+          <h2>Let’s talk</h2>
+          <div class="mail">
+            <code id="email">shreenipane@gmail.com</code>
+            <button class="btn" id="copy" type="button">Copy email</button>
+          </div>
+          <p class="copied mono" id="copied" aria-live="polite"></p>
+        </div>
+        <div class="links">
+          <a href="mailto:shreenipane@gmail.com"><span>Email</span><span>shreenipane@gmail.com →</span></a>
+          <a href="resume.pdf"><span>Résumé</span><span>PDF →</span></a>
+          <a href="https://www.linkedin.com/in/shreenipane"><span>LinkedIn</span><span>linkedin.com/in/shreenipane →</span></a>
+          <a href="https://github.com/shreenipane"><span>GitHub</span><span>github.com/shreenipane →</span></a>
+          <a href="https://github.com/shreenipane/VAGUS"><span>VAGUS</span><span>Linux resource manager →</span></a>
+          <a href="https://pulse-glass.vercel.app"><span>PulseGlass</span><span>Live demo →</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap mono"><span>Shree Nipane</span><span>Updated September 2026</span></div>
+</footer>
+
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var code = document.getElementById('email'), out = document.getElementById('copied');
+  function selectIt() {
+    var r = document.createRange(); r.selectNodeContents(code);
+    var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    out.textContent = 'Selected — press Ctrl+C to copy';
+  }
+  try {
+    navigator.clipboard.writeText(code.textContent).then(function () { out.textContent = 'Copied'; }, selectIt);
+  } catch (e) { selectIt(); }
+});
+</script>
+</body>
 </html>

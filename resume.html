@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shree Nipane · Résumé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Source for resume.pdf. Verdict is described only at the portfolio's disclosure level
+   (problem + measured results, no method) while a patent filing is under consideration. */
+@page{size:A4;margin:13mm 15mm}
+*{box-sizing:border-box}
+body{margin:0;font:400 9.6pt/1.38 "Hanken Grotesk",Carlito,Calibri,Arial,sans-serif;color:#111}
+main{max-width:180mm;margin:0 auto}
+h1{font:700 21pt/1 "Hanken Grotesk",Arial,sans-serif;letter-spacing:.02em;margin:0 0 5pt}
+.contact{margin:0 0 9pt;color:#333;font-size:8.4pt}
+.contact span{white-space:nowrap}
+.contact span+span::before{content:"|";margin:0 4.5pt 0 3pt;color:#999}
+h2{font-size:10.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin:10pt 0 5pt;padding-bottom:2pt;border-bottom:1.2pt solid #111}
+p{margin:0}
+.entry{margin:0 0 6pt}
+.row{display:flex;justify-content:space-between;gap:10pt}
+.stack{font-style:italic;color:#444;margin:1pt 0 2pt}
+ul{margin:1pt 0 0;padding-left:12pt}
+li{margin:0 0 1.6pt}
+b{font-weight:600}
+a{color:inherit;text-decoration:none}
+.skills p{margin:0 0 2pt}
+</style>
+</head>
+<body>
+<main>
+  <h1>SHREE NIPANE</h1>
+  <p class="contact"><span>Vellore, India</span> <span>shreenipane@gmail.com</span> <span>shreenipane.github.io/portfolio</span> <span>linkedin.com/in/shreenipane</span> <span>github.com/shreenipane</span></p>
+
+  <h2>Education</h2>
+  <div class="entry">
+    <div class="row"><p><b>Vellore Institute of Technology (VIT), Vellore</b></p><p>2024 – 2028</p></div>
+    <p><i>Bachelor of Technology in Computer Science and Engineering (expected graduation: 2028)</i></p>
+    <p><b>Class XII:</b> Swarajya Senior Secondary School, Alwar | 82.5% | 2024</p>
+    <p><b>Class X:</b> The Lexicon International School, Wagholi, Pune | 72.5% | 2022</p>
+  </div>
+
+  <h2>Kernel and Systems Projects</h2>
+  <div class="entry">
+    <p><b>Verdict</b> | In-kernel network packet classifier for Linux | in progress, code private</p>
+    <p class="stack">C99, eBPF, Linux kernel, GCC, Make, QEMU/KVM, Linux 7.1</p>
+    <ul>
+      <li>Built a classifier that decides whether a network packet is malicious inside the Linux kernel, at the earliest point on the receive path. It loads and runs on a real kernel, not a simulator.</li>
+      <li>Measured <b>250 ns</b> of CPU time per classified packet with BPF_PROG_TEST_RUN in throwaway QEMU/KVM guests running the host’s kernel.</li>
+      <li>Verified with differential and mutation tests: all <b>2,080,804</b> arithmetic cases checked exhaustively against a separate implementation with zero mismatches; <b>114,401</b> real network frames replayed with zero faults; <b>22 of 23</b> injected bugs caught (the survivor was equivalent code).</li>
+      <li>Implementation details are withheld while a patent application is considered. Accuracy on labelled attack traffic is the next test.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <p><b>VAGUS</b> | cgroup v2 resource and QoS manager for Linux servers | github.com/shreenipane/VAGUS</p>
+    <p class="stack">Python, cgroups v2, PSI, /proc, systemd, eBPF (cgroup_skb), bubblewrap, pytest</p>
+    <ul>
+      <li>Built a controller that reads cgroup v2 and /proc telemetry (cpu.stat, memory.current, io.stat, PSI) and writes cpu.max, cpu.weight and memory.high inside delegated systemd subtrees to protect latency-critical services.</li>
+      <li>Cut a web service’s P99 latency from <b>258 ms to 9.0 ms</b> (8.4 ms uncontended) beside a CPU hog and UDP flood (6 arms × 4 reps), after withdrawing an earlier result whose load generator was starved.</li>
+      <li>Made writes safe on a live host: path validation and traversal rejection, dry-run default, crash-consistent journal with exact revert, a single-writer lock and a PSI-gated rollback loop; <b>170+</b> tests run in a bubblewrap sandbox.</li>
+      <li>Prototyped an eBPF cgroup_skb ingress program to charge NET_RX softirq time to the owning cgroup (built; live run pending root access). Telemetry costs <b>0.6%</b> of one core across 139 cgroups.</li>
+    </ul>
+  </div>
+  <p class="entry"><b>Also built:</b> PulseGlass, on-device webcam heart-rate estimation in TypeScript and React with a tested DSP core (33 unit tests) | live demo: pulse-glass.vercel.app | github.com/shreenipane/pulse-glass</p>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <p><b>Languages:</b> C (primary), Python, C++, Java, SQL, TypeScript</p>
+    <p><b>Kernel and OS:</b> eBPF and the BPF verifier, cgroups v2, PSI, softirq accounting, systemd, /proc and cgroupfs, operating system fundamentals</p>
+    <p><b>Networking:</b> TCP/IP header parsing, packet processing, pcap/pcapng datasets</p>
+    <p><b>Tools:</b> Git, GitHub, GCC, Make, QEMU/KVM, bubblewrap, pytest; daily Linux user (Fedora)</p>
+    <p><b>Testing and Practice:</b> Differential, exhaustive and mutation testing; performance measurement; design docs and engineering logs</p>
+    <p><b>Also:</b> Data structures and algorithms (~150 LeetCode problems), system design, PyTorch, agentic AI</p>
+  </div>
+
+  <h2>Certification</h2>
+  <p><b>AWS Certified AI Practitioner (AIF-C01)</b> | Amazon Web Services</p>
+</main>
+</body>
+</html>
