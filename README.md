@@ -25,14 +25,6 @@ looking for software engineering internships in systems, infrastructure and appl
 No framework, no build step and no tracking. Fonts come from Google Fonts (Big Shoulders Display, Hanken Grotesk and
 Spline Sans Mono), and the page follows the visitor's light or dark setting.
 
-## Run it locally
-
-```sh
-python3 -m http.server 8000
-```
-
-Then open http://localhost:8000.
-
 ## Update the résumé
 
 Edit `resume.html`, then print it to PDF. The time budget gives the web font a moment to load before printing:
