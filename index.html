@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Shree Nipane, B.Tech CSE at VIT Vellore (graduating 2028). Linux systems work: an in-kernel packet classifier and a cgroup v2 resource manager. Open to software engineering internships.">
+<meta name="description" content="Shree Nipane, B.Tech CSE at VIT Vellore (graduating 2028). Systems work: Hermetic World, a time-sealed evaluation environment for AI agents, an in-kernel packet classifier and a cgroup v2 resource manager. Open to software engineering internships.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shree Nipane">
-<meta property="og:description" content="Shree Nipane, B.Tech CSE at VIT Vellore (graduating 2028). Linux systems work: an in-kernel packet classifier and a cgroup v2 resource manager. Open to software engineering internships.">
+<meta property="og:description" content="Shree Nipane, B.Tech CSE at VIT Vellore (graduating 2028). Systems work: Hermetic World, a time-sealed evaluation environment for AI agents, an in-kernel packet classifier and a cgroup v2 resource manager. Open to software engineering internships.">
 <meta property="og:url" content="https://shreenipane.github.io/portfolio/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' fill='%23111'/%3E%3Cpath d='M20.5 7.5H12a3.25 3.25 0 0 0 0 6.5h4a3.25 3.25 0 0 1 0 6.5H7.5' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='square'/%3E%3Crect x='19' y='18.9' width='3.2' height='3.2' fill='white'/%3E%3C/svg%3E">
 <title>Shree Nipane</title>
@@ -15,16 +15,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@500;600&display=swap">
 <style>
 :root{
-  --paper:#ffffff;
-  --paper-2:#fafafa;
-  --ink:#111111;
-  --ink-2:#4a4a4a;
-  --ink-3:#737373;
-  --line:#e5e5e5;
-  --accent:#111111;
-  --accent-deep:#3d3d3d;
-  --accent-pale:#f0f0f0;
+  --paper:#fbfaf7;
+  --paper-2:#f3f1ec;
+  --card:#ffffff;
+  --ink:#16130f;
+  --ink-2:#4b4640;
+  --ink-3:#6f6962;
+  --line:#e6e1d8;
+  --accent:#e2531f;
+  --accent-deep:#c2410c;
+  --accent-pale:#fde8dc;
   --on-accent:#ffffff;
+  --band:#16130f;
+  --on-band:#f6f3ee;
+  --glow:rgba(226,83,31,.16);
+  --shadow:0 1px 2px rgba(22,19,15,.05),0 10px 30px -14px rgba(22,19,15,.22);
   --bad:#c2410c;
   --display:"Big Shoulders Display","Arial Narrow","Helvetica Neue Condensed",Impact,sans-serif;
   --body:"Hanken Grotesk",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
@@ -34,14 +39,16 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --paper:#0d0d0d;--paper-2:#161616;--ink:#f2f2f2;--ink-2:#c4c4c4;--ink-3:#8f8f8f;
-    --line:#2b2b2b;--accent:#f2f2f2;--accent-deep:#cfcfcf;--accent-pale:#232323;--on-accent:#0d0d0d;--bad:#fb923c;
+    --paper:#0e0d0c;--paper-2:#171513;--card:#1a1816;--ink:#f3efe9;--ink-2:#c9c2b8;--ink-3:#9a938a;
+    --line:#2c2925;--accent:#ff7a45;--accent-deep:#ff9466;--accent-pale:#3a2117;--on-accent:#140c08;--bad:#fb923c;
+    --band:#171513;--on-band:#f3efe9;--glow:rgba(255,122,69,.18);--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -16px rgba(0,0,0,.7);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --paper:#0d0d0d;--paper-2:#161616;--ink:#f2f2f2;--ink-2:#c4c4c4;--ink-3:#8f8f8f;
-    --line:#2b2b2b;--accent:#f2f2f2;--accent-deep:#cfcfcf;--accent-pale:#232323;--on-accent:#0d0d0d;--bad:#fb923c;
+    --paper:#0e0d0c;--paper-2:#171513;--card:#1a1816;--ink:#f3efe9;--ink-2:#c9c2b8;--ink-3:#9a938a;
+    --line:#2c2925;--accent:#ff7a45;--accent-deep:#ff9466;--accent-pale:#3a2117;--on-accent:#140c08;--bad:#fb923c;
+    --band:#171513;--on-band:#f3efe9;--glow:rgba(255,122,69,.18);--shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px -16px rgba(0,0,0,.7);
 }
 
 *{box-sizing:border-box}
@@ -206,6 +213,71 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   .fill{animation:grow .9s cubic-bezier(.2,.7,.2,1) both}
   @keyframes grow{from{transform:scaleX(.02);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
 }
+
+/* ---- visual refresh: colour, depth, rounded cards ---- */
+body{background:var(--paper)}
+.strip{background:linear-gradient(90deg,var(--accent),var(--accent-deep));color:var(--on-accent)}
+header,nav{background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px)}
+nav{position:sticky;top:0;z-index:20}
+nav a{color:var(--ink-2)}
+nav a:hover{color:var(--accent);text-decoration:none}
+.btn{border-radius:999px;box-shadow:0 6px 18px -10px var(--accent)}
+.btn:hover{transform:translateY(-1px)}
+.btn.ghost{box-shadow:none}
+.btn,.proj,.hw-card,.chart{transition:transform .2s ease,box-shadow .2s ease,background .15s,color .15s,border-color .15s}
+.hero{background:radial-gradient(60% 80% at 85% 10%,var(--glow),transparent 70%),radial-gradient(40% 60% at 5% 100%,var(--glow),transparent 70%)}
+.hero h1 em{-webkit-text-stroke:2px var(--accent)}
+.hero .pattern .hi{color:var(--accent);opacity:.8}
+.eyebrow{color:var(--accent)}
+.tag{border-radius:999px;padding:4px 10px;background:var(--accent-pale);color:var(--accent-deep);font-weight:600}
+.stat .n{color:var(--accent)}
+.chart{border-radius:18px;background:var(--card);box-shadow:var(--shadow)}
+.r.win .fill{background:linear-gradient(90deg,var(--accent),var(--accent-deep))}
+.verdict{background:var(--paper-2)}
+.v-stats{gap:14px;border-top:0}
+.v-stats .stat,.v-stats .stat + .stat,.v-stats .stat:nth-child(even){background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.stats{gap:14px;border-top:0}
+.stats .stat,.stats .stat + .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.projects{gap:20px;border-top:0}
+.proj,.proj + .proj{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+.proj:hover,.hw-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.proj .hard,.verdict .hard{border-left-color:var(--accent)}
+.band{background:var(--band);color:var(--on-band)}
+.band .head h2{color:var(--on-band)}
+.band .eyebrow{color:var(--accent);opacity:1}
+.princ div{border-top:2px solid var(--accent);padding-top:18px}
+.princ p{color:color-mix(in srgb,var(--on-band) 85%,transparent)}
+.mail code{border-radius:12px}
+.links a:hover{color:var(--accent)}
+.timeline{border-top-color:var(--accent)}
+
+/* Hermetic World feature */
+.hw{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hw::before{content:"";position:absolute;inset:-20% -10% auto auto;width:60%;height:120%;background:radial-gradient(closest-side,var(--glow),transparent);pointer-events:none}
+.hw-grid{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,5vw,64px);align-items:start}
+.hw .sum{display:grid;gap:18px}
+.hw h2{font-size:clamp(56px,7vw,96px)}
+.hw .sum p{max-width:56ch;color:var(--ink-2)}
+.hw .hard{color:var(--ink);border-left:2px solid var(--accent);padding-left:12px;font-size:16px}
+.hw-side{display:grid;gap:14px}
+.hw-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow)}
+.hw-card .n{font:800 44px/1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.hw-card p{font-size:14px;color:var(--ink-2);margin-top:6px}
+.phases{display:grid;gap:8px;margin-top:4px}
+.ph{display:grid;grid-template-columns:120px 1fr 64px;gap:10px;align-items:center;font-size:13px}
+.ph b{font-family:var(--mono);font-weight:600}
+.ph .bar{height:8px;border-radius:99px;background:var(--accent-pale);overflow:hidden;padding:0;display:block}
+.ph .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-deep))}
+.ph span{font-family:var(--mono);text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums}
+@media (max-width:900px){.hw-grid{grid-template-columns:1fr}}
+section{scroll-margin-top:52px}
+@media (max-width:620px){
+  .ph{grid-template-columns:92px 1fr 56px}
+  /* one scrollable line so the sticky nav never covers the content */
+  nav ul{flex-wrap:nowrap;overflow-x:auto;gap:22px;scrollbar-width:none}
+  nav ul::-webkit-scrollbar{display:none}
+}
+@media (prefers-reduced-motion:reduce){.btn:hover,.proj:hover,.hw-card:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -224,6 +296,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <nav aria-label="Sections">
   <div class="wrap">
     <ul class="mono">
+      <li><a href="#hermetic">Hermetic World</a></li>
       <li><a href="#verdict">Verdict</a></li>
       <li><a href="#vagus">VAGUS</a></li>
       <li><a href="#work">Other work</a></li>
@@ -252,16 +325,45 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <div class="hero-in">
         <p class="mono eyebrow">B.Tech CSE · VIT Vellore · Graduating 2028</p>
         <h1>I build software that knows <em>when it’s wrong.</em></h1>
-        <p class="lede">I work on Linux systems: a packet classifier that runs inside the kernel in 250 ns per packet, and a resource manager that cut a service’s P99 latency from 258 ms to 9.0 ms beside noisy neighbours.</p>
+        <p class="lede">I build systems software: Hermetic World, a time-sealed evaluation environment for AI agents built on Firecracker microVMs; a packet classifier that runs inside the kernel in 250 ns per packet; and a resource manager that cut a service’s P99 latency from 258 ms to 9.0 ms beside noisy neighbours.</p>
         <div class="row">
-          <a class="btn" href="#verdict">See the work →</a>
+          <a class="btn" href="#hermetic">See the work →</a>
           <a class="btn ghost" href="resume.pdf">Résumé (PDF)</a>
           <a class="btn ghost" href="https://github.com/shreenipane">GitHub</a>
         </div>
-        <div class="facts mono"><span>C · Python · TypeScript</span><span>eBPF · cgroups v2 · PyTorch</span><span>Vellore, India</span></div>
+        <div class="facts mono"><span>Rust · C · Python · TypeScript</span><span>eBPF · cgroups v2 · PyTorch</span><span>Vellore, India</span></div>
       </div>
     </div>
   </div>
+
+  <section id="hermetic" class="hw">
+    <div class="wrap">
+      <div class="hw-grid">
+        <div class="sum">
+          <p class="mono eyebrow">Featured project · open source · Apache-2.0</p>
+          <h2>Hermetic World</h2>
+          <div class="tags"><span class="tag">Rust</span><span class="tag">Python</span><span class="tag">Firecracker</span><span class="tag">KVM</span><span class="tag">Sigstore</span></div>
+          <p>A time-sealed evaluation environment for AI coding agents. Each task runs in a world frozen at the moment the task was created: the repository, packages and web as they were then, inside Firecracker microVMs with the clock hidden. The agent can only solve the task by working it out, not by looking the answer up.</p>
+          <p>Before a run, <code>sealcheck</code> proves nothing created after the cutoff is reachable. The agent's work is extracted by a separate trusted VM, graded in an environment the agent never touched, and recorded in a signed run record.</p>
+          <p class="hard">Every phase is built. The checklist counts only items backed by merged tests: a full sealed run in a nested VM now passes seal, the jailed agent VM and guest extraction, and reaches grading.</p>
+          <div class="row"><a class="btn sm" href="https://shreenipane.github.io/HermeticWorld/">Visit the site →</a><a class="btn ghost sm" href="https://github.com/shreenipane/HermeticWorld">Read the code →</a></div>
+        </div>
+        <div class="hw-side">
+          <div class="hw-card"><span class="n">214 / 257</span><p>checklist items verified by merged tests across six phases (as of 2026-11-19).</p>
+            <div class="phases">
+              <div class="ph"><b>Phase 0</b><span class="bar" aria-hidden="true"><i style="width:100.0%"></i></span><span>10/10</span></div>
+              <div class="ph"><b>Phase 1</b><span class="bar" aria-hidden="true"><i style="width:90.4%"></i></span><span>47/52</span></div>
+              <div class="ph"><b>Phase 2</b><span class="bar" aria-hidden="true"><i style="width:83.3%"></i></span><span>40/48</span></div>
+              <div class="ph"><b>Phase 3</b><span class="bar" aria-hidden="true"><i style="width:77.8%"></i></span><span>56/72</span></div>
+              <div class="ph"><b>Phase 3b</b><span class="bar" aria-hidden="true"><i style="width:88.0%"></i></span><span>22/25</span></div>
+              <div class="ph"><b>Phase 4</b><span class="bar" aria-hidden="true"><i style="width:78.0%"></i></span><span>39/50</span></div>
+            </div>
+          </div>
+          <div class="hw-card"><span class="n">3 properties</span><p>Answer seal (hard guarantee), date seal (measured at three levels) and score integrity (graded where the agent never ran).</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="verdict" class="verdict">
     <div class="wrap">
@@ -418,6 +520,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <a href="resume.pdf"><span>Résumé</span><span>PDF →</span></a>
           <a href="https://www.linkedin.com/in/shreenipane"><span>LinkedIn</span><span>linkedin.com/in/shreenipane →</span></a>
           <a href="https://github.com/shreenipane"><span>GitHub</span><span>github.com/shreenipane →</span></a>
+          <a href="https://shreenipane.github.io/HermeticWorld/"><span>Hermetic World</span><span>Time-sealed agent evaluation →</span></a>
           <a href="https://github.com/shreenipane/VAGUS"><span>VAGUS</span><span>Linux resource manager →</span></a>
           <a href="https://pulse-glass.vercel.app"><span>PulseGlass</span><span>Live demo →</span></a>
         </div>
@@ -427,7 +530,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </main>
 
 <footer>
-  <div class="wrap mono"><span>Shree Nipane</span><span>Updated September 2026</span></div>
+  <div class="wrap mono"><span>Shree Nipane</span><span>Updated November 2026</span></div>
 </footer>
 
 <script>
